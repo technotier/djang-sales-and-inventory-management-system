@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="col-md-4">
+            <h1 id="section_title" class="h3 mb-3"><strong><i class="fas fa-coins"></i> Profit and Loss Statement </strong></h1>
+          </div>
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                     <h3>0/-</h3>
+   
+                  <p>Total Orders</p>
+                </div>
+                <div class="icon">
+                 <i class="fas fa-shopping-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">Orders info <i class="fas fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                     <h3>0/-</h3>
+
+                  <p>Orders Amount</p>
+                </div>
+                <div class="icon">
+                 <i class="	fas fa-coins"></i>
+                </div>
+                <a href="#" class="small-box-footer">Orders info <i class="fas fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                     <h3>0/-</h3>
+
+                  <p>Total Sales</p>
+                </div>
+                <div class="icon">
+                 <i class="fas fa-shopping-basket"></i>
+                </div>
+                <a href="#" class="small-box-footer">Sales info <i class="fas fa-coins"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-primary">
+                <div class="inner">
+                     <h3>0/-</h3>
+   
+                  <p>Sales Amount</p>
+                </div>
+                <div class="icon">
+                 <i class="fas fa-coins"></i>
+                </div>
+                <a href="#" class="small-box-footer">Sales info <i class="fas fa-coins"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+          </div>
+          <br><br>
+
+        <div class="row">
+          <div class="col-12 col-lg-6 col-xxl-9 d-flex">
+              <div class="card flex-fill">
+                  <div id="latest_sales" class="card-header">
+                      <h5 class="card-title mb-0">Product Based Sales History</h5>
+                  </div>
+                  <table class="table table-hover my-0">
+                      <thead>
+                          <tr>
+                              <th class="d-none d-xl-table-cell">Product</th>
+                              <th class="d-none d-xl-table-cell">Sold Qty</th>
+                              <th class="d-none d-xl-table-cell">Total Amount</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for p in products %}
+                          <tr>
+                              <td class="d-none d-xl-table-cell">{{ p.line_one_product }}</td>
+                              <td class="d-none d-xl-table-cell">{{ p.qty }}</td>
+                              <td class="d-none d-xl-table-cell">{{ p.line_one_total_price }}</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <div class="col-12 col-lg-6 col-xxl-9 d-flex">
+            <div class="card flex-fill">
+                <div id="latest_sales" class="card-header">
+                    <h5 class="card-title mb-0">Product Based Sales History</h5>
+                </div>
+                <table class="table table-hover my-0">
+                    <thead>
+                        <tr>
+                            <th class="d-none d-xl-table-cell">Product</th>
+                            <th class="d-none d-xl-table-cell">Sold Qty</th>
+                            <th class="d-none d-xl-table-cell">Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in products %}
+                        <tr>
+                            <td class="d-none d-xl-table-cell">{{ p.line_one_product }}</td>
+                            <td class="d-none d-xl-table-cell">{{ p.qty }}</td>
+                            <td class="d-none d-xl-table-cell">{{ p.line_one_total_price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+
+    </div>
+</main>
+{% endblock %}

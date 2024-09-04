@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="col-md-4">
+            <h1 id="section_title" class="h3 mb-3"><strong><i class="fas fa-gift"></i> JP Trading - All Products</strong></h1>
+          </div>
+           <!-- Small boxes (Stat box) -->
+           <div class="row">
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ total_product.id__count }}</h3>
+
+                  <p>Products</p>
+                </div>
+                <div class="icon">
+                 <i class="fas fa-gift"></i>
+                </div>
+                <a href="#" class="small-box-footer">Product info <i class="fas fa-gift"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                     <h3>{{ sold_out.id__count }}</h3>
+
+                  <p>Sold Out</p>
+                </div>
+                <div class="icon">
+                 <i class="fa fa-ban"></i>
+                </div>
+                <a href="#" class="small-box-footer">Product info <i class="fas fa-gift"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                     <h3>{{ min_price.price__min }}/-</h3>
+   
+                  <p>Min Price</p>
+                </div>
+                <div class="icon">
+                 <i class="fas fa-poll-h"></i>
+                </div>
+                <a href="#" class="small-box-footer">Product info <i class="fas fa-gift"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                     <h3>{{ max_price.price__max }}/-</h3>
+   
+                  <p>Max Price</p>
+                </div>
+                <div class="icon">
+                 <i class="fas fa-search-dollar"></i>
+                </div>
+                <a href="#" class="small-box-footer">Product info <i class="fas fa-gift"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+          </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-12 col-xxl-9 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                  <!-- Search form starts -->
+                  <form class="mb-4" method="GET">
+                    <div class="row">
+                       <div class="col-md-10">
+                          <input class="form-control" name="search" placeholder="Search Customer Here...">
+                       </div>
+                       <div class="col-md-2">
+                          <button class="btn btn-success">Search</button>
+                       </div>
+                    </div>
+                  </form>
+                  <!-- Search Forms Ends -->
+                        <a href="{% url 'add_product' %}"><button type="submit" class="btn btn-primary">
+                            Add New Product</button></a>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th class="d-none d-xl-table-cell">Features</th>
+                                <th class="d-none d-xl-table-cell">Model</th>
+                                <th class="d-none d-md-table-cell">Price</th>
+                                <th class="d-none d-md-table-cell">Unit</th>
+                                <th class="d-none d-md-table-cell">Stock</th>
+                                <th class="d-none d-md-table-cell">Photo</th>
+                                <th class="d-none d-md-table-cell">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in products %}
+                            <tr>
+                                <td><span class="badge bg-info">{{ p.name | capfirst}}</span></td>
+                                <td>{{ p.features }}</td>
+                                <td>{{ p.model }}</td>
+                                <td><span class="badge bg-secondary">{{ p.price }}/-</span></td>
+                                <td>{{ p.unit }}</td>
+                                {% if p.in_stock == 0 %}
+                                    <td><span class="badge bg-danger">Sold Out</span></td>
+                                {% elif p.in_stock < 100 %}
+                                    <td><span class="badge bg-danger">{{ p.in_stock }}</span></td>
+                                {% else %}
+                                    <td><span class="badge bg-success">{{ p.in_stock }}</span></td>
+                                {% endif %}
+                                <td><img src="{{ p.img.url }}" alt="No Image" style="width:50px; height:30px;"></td>
+                                <td>
+                                    <a href="{% url 'update_product' p.id %}"><button type="submit" class="btn btn-primary btn-sm"><i class="align-middle" data-feather="edit"></i></button></a>
+                                    <a href="{% url 'delete_product' p.id %}"><button type="submit" class="btn btn-danger btn-sm"><i class="align-middle" data-feather="trash"></i></button></a>
+                                 </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+

@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+       <h1 class="h3 mb-3 text-center"><strong>JP Trading - </strong>Create New Order</h1>
+       <div class="row">
+        <form class="col-12 mx-auto card p-3 shadow-lg" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <h1 class="h4 mb-3"><strong>Customer Info</strong></h1>
+                <hr>
+                <div id="customer_name" class="col-md-6">
+                    <div class="form-group col-md-6">
+                      <label for="exampleInputEmail1">{{ form.customer | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="phone_number" class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">{{ form.phone | as_crispy_field }}</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <h1 class="h4 mb-3"><strong>Add Product</strong></h1>
+                <br><hr>
+                <!-- Product One -->
+                <div id="line_one_product" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_one_product | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_one_qty" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_one_qty | as_crispy_field }}</label>
+                        
+                    </div>
+                </div>
+                <div id="line_one_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_one_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_one_total_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_one_total_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_two_product" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_two_product | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_two_qty" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_two_qty | as_crispy_field }}</label>
+                        
+                    </div>
+                </div>
+                <div id="line_two_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_two_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_two_total_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_two_total_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_three_product" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_three_product | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_three_qty" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_three_qty | as_crispy_field }}</label>
+                        
+                    </div>
+                </div>
+                <div id="line_three_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_three_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_three_total_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_three_total_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_four_product" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_four_product | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_four_qty" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_four_qty | as_crispy_field }}</label>
+                        
+                    </div>
+                </div>
+                <div id="line_four_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_four_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_four_total_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_four_total_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_five_product" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_five_product | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_five_qty" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_five_qty | as_crispy_field }}</label>
+                        
+                    </div>
+                </div>
+                <div id="line_five_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_five_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_five_total_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_five_total_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_six_product" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_six_product | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_six_qty" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_six_qty | as_crispy_field }}</label>
+                        
+                    </div>
+                </div>
+                <div id="line_six_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_six_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_six_total_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_six_total_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_seven_product" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_seven_product | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_seven_qty" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_seven_qty | as_crispy_field }}</label>
+                        
+                    </div>
+                </div>
+                <div id="line_seven_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_seven_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_seven_total_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_seven_total_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_eight_product" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_eight_product | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_eight_qty" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_eight_qty | as_crispy_field }}</label>
+                        
+                    </div>
+                </div>
+                <div id="line_eight_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_eight_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_eight_total_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_eight_total_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_nine_product" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_nine_product | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_nine_qty" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_nine_qty | as_crispy_field }}</label>
+                        
+                    </div>
+                </div>
+                <div id="line_nine_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_nine_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_nine_total_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_nine_total_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_ten_product" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_ten_product | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_ten_qty" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_ten_qty | as_crispy_field }}</label>
+                        
+                    </div>
+                </div>
+                <div id="line_ten_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_ten_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+                <div id="line_ten_total_price" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.line_ten_total_price | as_crispy_field }}</label>
+                    </div>
+                </div>
+
+                <!-- Total Amount-->
+                <div id="total_amount" class="col-md-3">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ form.total_amount | as_crispy_field }}</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="more-line" class="btn btn-primary" type="button">Show / Hide More Lines</button>
+           <br>
+            <button type="submit" id="css_for_btn" class="btn btn-success btn-bg">Confirm Order</button>
+            </form>
+       </div>
+    </div>
+ </main>
+
+{% endblock %}
+

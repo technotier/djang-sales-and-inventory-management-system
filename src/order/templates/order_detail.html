@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+      <script src="{% static 'jquery/my_jquery.js' %}"></script>
+      
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+      <meta name="author" content="AdminKit">
+      <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link rel="shortcut icon" href="{% static 'img/icons/icon-48x48.png' %}" />
+      <link href="{% static 'css/app.css' %}" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+   </head>
+<body>
+  <div class="container">
+    <section class="py-3 py-md-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-9 col-xl-8 col-xxl-7">
+            <div class="row gy-3 mb-3">
+              <div class="col-md-12">
+                  <div class="text-center">
+                    <i class="fab fa-mdb fa-4x ms-0" style="color:#5d9fc5 ;"></i>
+                    <p class="pt-0"><img src="{% static 'img/avatars/logo.png' %}" at="Logo" style="height:100%; width: 160px;"></p>
+                    <ul class="list-unstyled">
+                      <li class="text-muted" style="font-size:13px;"><span style="font-size:13px;">518, D.T. Road, Kadamtali, Chittagong, Bangladesh</span></li>
+                      <li class="text-muted" style="font-size:13px;">Phone: <span style="font-size:13px;">+ 880 1833322999</span></li>
+                      <li class="text-muted" style="font-size:13px;">Email: <span style="font-size:13px;">info@jptradingfzc.com</span></li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-12 col-sm-6 col-md-8">
+                <h4>Bill To:</h4>
+                <address>
+                  <strong>{{ object.customer }}</strong><br>
+                  Phone: (+88) {{ object.phone }}<br>
+                </address>
+              </div>
+              <div class="col-12 col-sm-6 col-md-4">
+                <h4 class="row">
+                  <span class="col-6">Invoice: </span>
+                  <span class="col-6 text-sm-end"># JP-{{ object.id }}</span>
+                </h4>
+                <div class="row">
+                  <span class="col-6">Invoice Date:</span>
+                  <span class="col-6 text-sm-end">{{ object.date }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="text-uppercase">SL</th>
+                        <th scope="col" class="text-uppercase">Product</th>
+                        <th scope="col" class="text-uppercase">Qty</th>
+                        <th scope="col" class="text-uppercase text-end">Price</th>
+                        <th scope="col" class="text-uppercase text-end">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                      <tr>
+                        <th scope="row">1</th>
+                        {% if object.line_one_product %}
+                          <td>{{ object.line_one_product }}</td>
+                        {% else %}
+                        <td>Not Available</td>
+                        {% endif %}
+                        <td>{{ object.line_one_qty }}</td>
+                        <td class="text-end">{{ object.line_one_price }}/-</td>
+                        <td class="text-end">{{ object.line_one_total_price }}/-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        {% if object.line_two_product %}
+                          <td>{{ object.line_two_product }}</td>
+                        {% else %}
+                        <td>Not Available</td>
+                        {% endif %}
+                        <td>{{ object.line_two_qty }}</td>
+                        <td class="text-end">{{ object.line_two_price }}/-</td>
+                        <td class="text-end">{{ object.line_two_total_price }}/-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        {% if object.line_three_product %}
+                          <td>{{ object.line_three_product }}</td>
+                        {% else %}
+                        <td>Not Available</td>
+                        {% endif %}
+                        <td>{{ object.line_three_qty }}</td>
+                        <td class="text-end">{{ object.line_three_price }}/-</td>
+                        <td class="text-end">{{ object.line_three_total_price }}/-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        {% if object.line_four_product %}
+                          <td>{{ object.line_four_product }}</td>
+                        {% else %}
+                        <td>Not Available</td>
+                        {% endif %}
+                        <td>{{ object.line_four_qty }}</td>
+                        <td class="text-end">{{ object.line_four_price }}/-</td>
+                        <td class="text-end">{{ object.line_four_total_price }}/-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">5</th>
+                        {% if object.line_five_product %}
+                          <td>{{ object.line_five_product }}</td>
+                        {% else %}
+                        <td>Not Available</td>
+                        {% endif %}
+                        <td>{{ object.line_five_qty }}</td>
+                        <td class="text-end">{{ object.line_five_price }}/-</td>
+                        <td class="text-end">{{ object.line_five_total_price }}/-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">6</th>
+                        {% if object.line_six_product %}
+                          <td>{{ object.line_six_product }}</td>
+                        {% else %}
+                        <td>Not Available</td>
+                        {% endif %}
+                        <td>{{ object.line_six_qty }}</td>
+                        <td class="text-end">{{ object.line_six_price }}/-</td>
+                        <td class="text-end">{{ object.line_six_total_price }}/-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">7</th>
+                        {% if object.line_seven_product %}
+                          <td>{{ object.line_seven_product }}</td>
+                        {% else %}
+                        <td>Not Available</td>
+                        {% endif %}
+                        <td>{{ object.line_seven_qty }}</td>
+                        <td class="text-end">{{ object.line_seven_price }}/-</td>
+                        <td class="text-end">{{ object.line_seven_total_price }}/-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">8</th>
+                        {% if object.line_eight_product %}
+                          <td>{{ object.line_eight_product }}</td>
+                        {% else %}
+                        <td>Not Available</td>
+                        {% endif %}
+                        <td>{{ object.line_eight_qty }}</td>
+                        <td class="text-end">{{ object.line_eight_price }}/-</td>
+                        <td class="text-end">{{ object.line_eight_total_price }}/-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">9</th>
+                        {% if object.line_nine_product %}
+                          <td>{{ object.line_nine_product }}</td>
+                        {% else %}
+                        <td>Not Available</td>
+                        {% endif %}
+                        <td>{{ object.line_nine_qty }}</td>
+                        <td class="text-end">{{ object.line_nine_price }}/-</td>
+                        <td class="text-end">{{ object.line_nine_total_price }}/-</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">10</th>
+                        {% if object.line_ten_product %}
+                          <td>{{ object.line_ten_product }}</td>
+                        {% else %}
+                        <td>Not Available</td>
+                        {% endif %}
+                        <td>{{ object.line_ten_qty }}</td>
+                        <td class="text-end">{{ object.line_ten_price }}/-</td>
+                        <td class="text-end">{{ object.line_ten_total_price }}/-</td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" class="text-end">Subtotal</td>
+                        <td id="total_bg_css" class="text-end"><strong><h4>{{ object.total_amount }}/-</h4></strong></td>
+                      </tr>
+                      <tr>
+                        <th scope="row" colspan="4" class="text-uppercase text-end">G. Total</th>
+                        <td id="total_bg_css" class="text-end"><strong><h4>{{ object.total_amount }}/-</h4></strong></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>

@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="col-md-4">
+            <h1 id="section_title" class="h3 mb-3"><strong><i class="fas fa-bars"></i> Analytics Dashboard </strong></h1>
+          </div>
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  {% if today_expense.expense_amount__sum %}
+                     <h3>{{ today_expense.expense_amount__sum }}/-</h3>
+                  {% else %}
+                     <h3>{{ total_orders.id__count }}</h3>
+                  {% endif %}
+   
+                  <p>Total Orders</p>
+                </div>
+                <div class="icon">
+                 <i class="fas fa-shopping-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">Orders info <i class="fas fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  {% if yesterday_expense.expense_amount__sum %}
+                     <h3>{{ yesterday_expense.expense_amount__sum }}/-</h3>
+                  {% else %}
+                     <h3>{{ total_order_amount.total_amount__sum }}/-</h3>
+                  {% endif %}
+                  <p>Orders Amount</p>
+                </div>
+                <div class="icon">
+                 <i class="	fas fa-coins"></i>
+                </div>
+                <a href="#" class="small-box-footer">Orders info <i class="fas fa-shopping-bag"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  {% if this_month_expense.expense_amount__sum %}
+                     <h3>{{ this_month_expense.expense_amount__sum }}/-</h3>
+                  {% else %}
+                     <h3>{{ total_sales.id__count }}</h3>
+                  {% endif %}
+   
+                  <p>Total Sales</p>
+                </div>
+                <div class="icon">
+                 <i class="fas fa-shopping-basket"></i>
+                </div>
+                <a href="#" class="small-box-footer">Sales info <i class="fas fa-coins"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-primary">
+                <div class="inner">
+                  {% if last_month_expense.expense_amount__sum %}
+                     <h3>{{ last_month_expense.expense_amount__sum }}/-</h3>
+                  {% else %}
+                     <h3>{{ total_sales_amount.invoice_total__sum }}/-</h3>
+                  {% endif %}
+   
+                  <p>Sales Amount</p>
+                </div>
+                <div class="icon">
+                 <i class="fas fa-coins"></i>
+                </div>
+                <a href="#" class="small-box-footer">Sales info <i class="fas fa-coins"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+                <div class="card flex-fill">
+                    <div id="latest_sales" class="card-header">
+                        <h5 class="card-title mb-0">Top 5 Sales - {% now "F, Y" %}</h5>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th class="d-none d-xl-table-cell">Customer</th>
+                                <th class="d-none d-xl-table-cell">Phone</th>
+                                <th class="d-none d-xl-table-cell">Invoice</th>
+                                <th class="d-none d-xl-table-cell">Total Amount</th>
+                                <th class="d-none d-xl-table-cell">Payment Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ts in top_5_sales %}
+                            <tr>
+                                <td class="d-none d-xl-table-cell">{{ ts.customer }}</td>
+                                <td class="d-none d-xl-table-cell">{{ ts.phone }}</td>
+                                <td class="d-none d-xl-table-cell"># JP-{{ ts.invoice_number }}</td>
+                                <td class="d-none d-xl-table-cell"><span class="badge bg-success">{{ ts.invoice_total }}/-</span></td>
+                                {% if ts.payment_type == "Bank" %}
+                                    <td class="d-none d-xl-table-cell"><span class="badge bg-warning">{{ ts.payment_type }}</span></td>
+                                {% elif ts.payment_type == "Cash" %}
+                                    <td class="d-none d-xl-table-cell"><span class="badge bg-primary">{{ ts.payment_type }}</span></td>
+                                {% else %}
+                                    <td class="d-none d-xl-table-cell"><span class="badge bg-info">{{ ts.payment_type }}</span></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                  <div class="inner">
+                       <h3>{{ payment_receive_total.payment_receive__sum }}/-</h3>
+     
+                    <p>Received till - {% now "jS F Y" %}</p>
+                  </div>
+                  <div class="icon">
+                   <i class="fas fa-coins"></i>
+                  </div>
+                  <a href="#" class="small-box-footer">Payment Received info <i class="fas fa-coins"></i></a>
+                </div>
+                <div class="small-box bg-danger">
+                  <div class="inner">
+                       <h3>{{ due_payment_total.due_payment__sum }}/-</h3>
+     
+                    <p>Due Payment till - {% now "jS F Y" %}</p>
+                  </div>
+                  <div class="icon">
+                   <i class="fas fa-coins"></i>
+                  </div>
+                  <a href="#" class="small-box-footer">Due Payment info <i class="fas fa-coins"></i></a>
+                </div>
+              </div>
+              <!-- ./col -->
+            </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-12 col-xxl-9 d-flex">
+                <div class="card flex-fill">
+                    <div id="latest_sales" class="card-header">
+                        <h5 class="card-title mb-0">Latest 10 Sales Record - Today</h5>
+                    </div>
+                    <table class="table table-hover my-0">
+                        <thead>
+                            <tr>
+                                <th class="d-none d-xl-table-cell">Customer</th>
+                                <th class="d-none d-xl-table-cell">Phone</th>
+                                <th class="d-none d-xl-table-cell">Invoice</th>
+                                <th class="d-none d-xl-table-cell">Amount</th>
+                                <th class="d-none d-xl-table-cell">Received</th>
+                                <th class="d-none d-xl-table-cell">Due</th>
+                                <th class="d-none d-xl-table-cell">Status</th>
+                                <th class="d-none d-xl-table-cell">Payment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ls in last_10_sales %}
+                            <tr>
+                                <td class="d-none d-xl-table-cell">{{ ls.customer }}</td>
+                                <td class="d-none d-xl-table-cell">{{ ls.phone }}</td>
+                                <td class="d-none d-xl-table-cell"># JP-{{ ls.id }}</td>
+                                <td class="d-none d-xl-table-cell"><span class="badge bg-primary">{{ ls.invoice_total }}/-</span></td>
+                                <td class="d-none d-xl-table-cell"><span class="badge bg-success">{{ ls.payment_receive }}/-</span></td>
+                                <td class="d-none d-xl-table-cell"><span class="badge bg-secondary">{{ ls.due_payment }}/-</span></td>
+                                {% if ls.payment_status == "Pending" %}
+                                <td class="d-none d-xl-table-cell"><span class="badge bg-danger">{{ ls.payment_status }}/-</span></td>
+                                {% else %}
+                                <td class="d-none d-xl-table-cell"><span class="badge bg-success">{{ ls.payment_status }}/-</span></td>
+                                {% endif %}
+                                {% if ls.payment_type == "Bank" %}
+                                    <td class="d-none d-xl-table-cell"><span class="badge bg-warning">{{ ls.payment_type }}</span></td>
+                                {% elif ls.payment_type == "Cash" %}
+                                    <td class="d-none d-xl-table-cell"><span class="badge bg-success">{{ ls.payment_type }}</span></td>
+                                {% else %}
+                                    <td class="d-none d-xl-table-cell"><span class="badge bg-info">{{ ls.payment_type }}</span></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-lg-6 col-xxl-9 d-flex">
+              <div class="card flex-fill">
+                  <div id="latest_sales" class="card-header">
+                      <h5 class="card-title mb-0">Product Based Sales History</h5>
+                  </div>
+                  <table class="table table-hover my-0">
+                      <thead>
+                          <tr>
+                              <th class="d-none d-xl-table-cell">Product</th>
+                              <th class="d-none d-xl-table-cell">Sold Qty</th>
+                              <th class="d-none d-xl-table-cell">Total Amount</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for p in products %}
+                          <tr>
+                              <td class="d-none d-xl-table-cell">{{ p.line_one_product }}</td>
+                              <td class="d-none d-xl-table-cell">{{ p.qty }}</td>
+                              <td class="d-none d-xl-table-cell">{{ p.line_one_total_price }}</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+
+    </div>
+</main>
+{% endblock %}

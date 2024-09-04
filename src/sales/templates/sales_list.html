@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+      <div class="col-md-4">
+         <h1 id="section_title" class="h3 mb-3"><strong><i class="fas fa-shopping-bag"></i> JP Trading - Order History</strong></h1>
+       </div>
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-info">
+             <div class="inner">
+               <h3>{{ today_sales.id__count }}</h3>
+
+               <p>Today's Sales</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-gift"></i>
+             </div>
+             <a href="#" class="small-box-footer">Sales info Today <i class="fas fa-gift"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-success">
+             <div class="inner">
+               <h3>{{ total_amount.invoice_total__sum }}/-</h3>
+
+               <p>Total Amount</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-shopping-bag"></i>
+             </div>
+             <a href="#" class="small-box-footer">Sales info Today <i class="fas fa-gift"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-warning">
+             <div class="inner">
+               <h3>{{ received_amount.payment_receive__sum }}/-</h3>
+
+               <p>Received</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-coins"></i>
+             </div>
+             <a href="#" class="small-box-footer">Sales info Today <i class="fas fa-gift"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-danger">
+             <div class="inner">
+               <h3>{{ due_amount.due_payment__sum }}/-</h3>
+
+               <p>Due Payment</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-balance-scale-right"></i>
+             </div>
+             <a href="#" class="small-box-footer">Sales info Today <i class="fas fa-gift"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+       </div>
+
+       <div class="row">
+          <div class="col-12 col-lg-12 col-xxl-9 d-flex">
+             <div class="card flex-fill">
+                <div class="card-header">
+                  <!-- Search form starts -->
+                  <form class="mb-4" method="GET">
+                     <div class="row">
+                        <div class="col-md-10">
+                           <input class="form-control" name="search" placeholder="Search Customer Here...">
+                        </div>
+                        <div class="col-md-2">
+                           <button class="btn btn-success">Search</button>
+                        </div>
+                     </div>
+                   </form>
+                   <!-- Search Forms Ends -->
+                  <a href="{% url 'add_sales' %}"><button type="submit" class="btn btn-primary">
+                     Entry Sales</button></a>
+                </div>
+                <table class="table table-hover my-0">
+                   <thead>
+                      <tr>
+                         <th>Date</th>
+                         <th class="d-none d-xl-table-cell">Customer</th>
+                         <th class="d-none d-xl-table-cell">Phone</th>
+                         <th class="d-none d-md-table-cell">Invoice</th>
+                         <th class="d-none d-md-table-cell">Total Amount</th>
+                         <th class="d-none d-md-table-cell">Received</th>
+                         <th class="d-none d-md-table-cell">Due Amount</th>
+                         <th class="d-none d-md-table-cell">Status</th>
+                         <th class="d-none d-md-table-cell">Action</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                    {% for s in sales %}
+                      <tr>
+                         <td>{{ s.date }}</td>
+                         <td><span class="badge bg-info">{{ s.customer }}</span></td>
+                         <td>{{ s.phone }}</td>
+                         <td><span class="badge bg-secondary"># JP-{{ s.id }}</span></td>
+                         <td><span class="badge bg-primary">{{ s.invoice_total }}/-</span></td>
+                         <td><span class="badge bg-success">{{ s.payment_receive }}/-</span></td>
+                         {% if s.due_payment == 0 %}
+                            <td>{{ s.due_payment }}/-</td>
+                         {% else %}
+                            <td><span class="badge bg-dark">{{ s.due_payment }}/-</span></td>
+                         {% endif %}
+                         {% if s.payment_status == "Paid" %}
+                            <td><span class="badge bg-success">{{ s.payment_status }}</span></td>
+                         {% else %}
+                            <td><span class="badge bg-danger">{{ s.payment_status }}</span></td>
+                         {% endif %}
+                         <td>
+                            <a href="{% url 'update_sales' s.id %}"><button type="submit" class="btn btn-info btn-sm"><i class="align-middle" data-feather="edit"></i></button></a>
+                            <a href="{% url 'delete_sales' s.id %}"><button type="submit" class="btn btn-danger btn-sm"><i class="align-middle" data-feather="trash"></i></button></a>
+                         </td>
+                      </tr>
+                      {% endfor %}
+                   </tbody>
+                </table>
+                <!-- start pagination -->
+                <div class="pagination">
+                  <span class="step-links">
+                      {% if sales.has_previous %}
+                          <a href="?page=1"><button type="submit" class="btn btn-primary btn-sm">&laquo; First</button></a>
+                          <a href="?page={{ sales.previous_page_number }}"><button type="" class="btn btn-primary btn-sm">Previous</button></a>
+                      {% endif %}
+              
+                      <span class="current">
+                          Page {{ sales.number }} of {{ sales.paginator.num_pages }}.
+                      </span>
+              
+                      {% if sales.has_next %}
+                          <a href="?page={{ sales.next_page_number }}"><button type="submit" class="btn btn-primary btn-sm">Next</button></a>
+                          <a href="?page={{ sales.paginator.num_pages }}"><button type="submit" class="btn btn-primary btn-sm">Last &raquo;</button></a>
+                      {% endif %}
+                  </span>
+              </div>
+              <!-- end pagination -->
+             </div>
+          </div>
+       </div>
+    </div>
+ </main>
+
+{% endblock %}
+

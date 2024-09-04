@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+      <div class="col-md-4">
+         <h1 id="section_title" class="h3 mb-3"><strong><i class="fas fa-users"></i> JP Trading - All Employees</strong></h1>
+       </div>
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-info">
+             <div class="inner">
+                  <h3>{{ total_employee.id__count }}</h3>
+
+               <p>Employee</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-user"></i>
+             </div>
+             <a href="#" class="small-box-footer">Employee info <i class="fas fa-user"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-success">
+             <div class="inner">
+                  <h3>{{ total_department.department__count }}</h3>
+               <p>Department</p>
+             </div>
+             <div class="icon">
+              <i class="far fa-credit-card"></i>
+             </div>
+             <a href="#" class="small-box-footer">Employee info <i class="fas fa-user"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-warning">
+             <div class="inner">
+                  <h3>{{ total_salary.salary__sum }}/-</h3>
+
+               <p>Monthly Salary</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-trophy"></i>
+             </div>
+             <a href="#" class="small-box-footer">Employee info <i class="fas fa-user"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-primary">
+             <div class="inner">
+                  <h3>10 am - 6 pm</h3>
+
+               <p>Office Hours</p>
+             </div>
+             <div class="icon">
+              <i class="fa fa-clock"></i>
+             </div>
+             <a href="#" class="small-box-footer">Employee info <i class="fas fa-user"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+       </div>
+
+       <div class="row">
+          <div class="col-12 col-lg-12 col-xxl-9 d-flex">
+             <div class="card flex-fill">
+                <div class="card-header">
+                  <a href="{% url 'add_employee' %}"><button type="submit" class="btn btn-primary">
+                     Add New Employee</button></a>
+                </div>
+                <table class="table table-hover my-0">
+                   <thead>
+                      <tr>
+                         <th>Name</th>
+                         <th class="d-none d-xl-table-cell">Phone</th>
+                         <th class="d-none d-xl-table-cell">Email</th>
+                         <th class="d-none d-md-table-cell">Department</th>
+                         <th class="d-none d-md-table-cell">Salary</th>
+                         <th class="d-none d-md-table-cell">Photo</th>
+                         <th class="d-none d-md-table-cell">Action</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                    {% for emp in employee %}
+                      <tr>
+                        <td><span class="badge bg-warning">{{ emp.full_name }}</span></td>
+                         <td>{{ emp.phone }}</td>
+                         <td>{{ emp.email }}</td>
+                         <td>
+                           {% if emp.department == "Accounts" %}
+                              <span class="badge bg-danger">{{ emp.department }}</span>
+                           {% elif emp.department == "HR" %}
+                              <span class="badge bg-warning">{{ emp.department }}</span>
+                           {% elif emp.department == "Sales" %}
+                              <span class="badge bg-primary">{{ emp.department }}</span>
+                           {% elif emp.department == "Marketing" %}
+                              <span class="badge bg-success">{{ emp.department }}</span>
+                           {% elif emp.department == "IT and Admin" %}
+                              <span class="badge bg-info">{{ emp.department }}</span>
+                           {% elif emp.department == "Business Development" %}
+                              <span class="badge bg-dark">{{ emp.department }}</span>
+                           {% else %}
+                              <span class="badge bg-secondary">{{ emp.department }}</span>
+                           {%endif%}
+                        </td>
+                         <td><span class="badge bg-success">{{ emp.salary }}/-</span></td>
+                         <td><img src="{{ emp.img.url }}" alt="No Image" style="width:50px; height:50px;"></td>
+                         <td>
+                            <a href="{% url 'update_employee' emp.id %}"><button type="submit" class="btn btn-primary btn-sm"><i class="align-middle" data-feather="edit"></i></button></a>
+                            <a href="{% url 'delete_employee' emp.id %}"><button type="submit" class="btn btn-danger btn-sm"><i class="align-middle" data-feather="trash"></i></button></a>
+                         </td>
+                      </tr>
+                      {% endfor %}
+                   </tbody>
+                </table>
+             </div>
+          </div>
+       </div>
+    </div>
+ </main>
+
+{% endblock %}
+

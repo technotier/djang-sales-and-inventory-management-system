@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+      <div class="col-md-4">
+         <h1 id="section_title" class="h3 mb-3"><strong><i class="fas fa-cart-arrow-down"></i> JP Trading - Expense </strong></h1>
+       </div>
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-info">
+             <div class="inner">
+               {% if today_expense.expense_amount__sum %}
+                  <h3>{{ today_expense.expense_amount__sum }}/-</h3>
+               {% else %}
+                  <h3>0.0/-</h3>
+               {% endif %}
+
+               <p>Today's Expense</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-store-alt-slash"></i>
+             </div>
+             <a href="#" class="small-box-footer">Expense info <i class="fas fa-cart-arrow-down"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-success">
+             <div class="inner">
+               {% if yesterday_expense.expense_amount__sum %}
+                  <h3>{{ yesterday_expense.expense_amount__sum }}/-</h3>
+               {% else %}
+                  <h3>0.0/-</h3>
+               {% endif %}
+               <p>Yesterday</p>
+             </div>
+             <div class="icon">
+              <i class="	fas fa-store-slash"></i>
+             </div>
+             <a href="#" class="small-box-footer">Expense info <i class="fas fa-cart-arrow-down"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-warning">
+             <div class="inner">
+               {% if this_month_expense.expense_amount__sum %}
+                  <h3>{{ this_month_expense.expense_amount__sum }}/-</h3>
+               {% else %}
+                  <h3>0.0/-</h3>
+               {% endif %}
+
+               <p>This Month</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-calculator"></i>
+             </div>
+             <a href="#" class="small-box-footer">Expense info <i class="fas fa-cart-arrow-down"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-danger">
+             <div class="inner">
+               {% if last_month_expense.expense_amount__sum %}
+                  <h3>{{ last_month_expense.expense_amount__sum }}/-</h3>
+               {% else %}
+                  <h3>0.0/-</h3>
+               {% endif %}
+
+               <p>Last Month</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-calendar-check"></i>
+             </div>
+             <a href="#" class="small-box-footer">Expense info <i class="fas fa-cart-arrow-down"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+       </div>
+       
+       <div class="row">
+          <div class="col-12 col-lg-12 col-xxl-9 d-flex">
+             <div class="card flex-fill">
+                <div class="card-header">
+                  <!-- Search form starts -->
+                  <form class="mb-4" method="GET">
+                     <div class="row">
+                        <div class="col-md-10">
+                           <input class="form-control" name="search" placeholder="Search Customer Here...">
+                        </div>
+                        <div class="col-md-2">
+                           <button class="btn btn-success">Search</button>
+                        </div>
+                     </div>
+                   </form>
+                   <!-- Search Forms Ends -->
+                  <a href="{% url 'add_expense' %}"><button type="submit" class="btn btn-primary">
+                     Add Expense</button></a>
+                </div>
+                <table class="table table-hover my-0">
+                   <thead>
+                      <tr>
+                         <th>Date</th>
+                         <th class="d-none d-xl-table-cell">Expense</th>
+                         <th class="d-none d-xl-table-cell">Paid To</th>
+                         <th class="d-none d-md-table-cell">Expense Amount</th>
+                         <th class="d-none d-md-table-cell">Payment Type</th>
+                         <th class="d-none d-md-table-cell">Action</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                    {% for e in expenses %}
+                      <tr>
+                         <td>{{ e.date }}</td>
+                         <td>{{ e.expense_type }}</td>
+                         <td>{{ e.paid_to }}</td>
+                         <td><span class="badge bg-success">{{ e.expense_amount }}/-</span></td>
+                         <td>{{ e.payment_type }}</td>
+                         <td>
+                            <a href="{% url 'update_expense' e.id %}"><button type="submit" class="btn btn-primary btn-sm"><i class="align-middle" data-feather="edit"></i></button></a>
+                            <a href="{% url 'delete_expense' e.id %}"><button type="submit" class="btn btn-danger btn-sm"><i class="align-middle" data-feather="trash"></i></button></a>
+                         </td>
+                      </tr>
+                      {% endfor %}
+                   </tbody>
+                </table>
+                <!-- start pagination -->
+                <div class="pagination">
+                  <span class="step-links">
+                      {% if expenses.has_previous %}
+                          <a href="?page=1"><button type="submit" class="btn btn-primary btn-sm">&laquo; First</button></a>
+                          <a href="?page={{ expenses.previous_page_number }}"><button type="" class="btn btn-primary btn-sm">Previous</button></a>
+                      {% endif %}
+              
+                      <span class="current">
+                          Page {{ expenses.number }} of {{ expenses.paginator.num_pages }}.
+                      </span>
+              
+                      {% if expenses.has_next %}
+                          <a href="?page={{ expenses.next_page_number }}"><button type="submit" class="btn btn-primary btn-sm">Next</button></a>
+                          <a href="?page={{ expenses.paginator.num_pages }}"><button type="submit" class="btn btn-primary btn-sm">Last &raquo;</button></a>
+                      {% endif %}
+                  </span>
+              </div>
+              <!-- end pagination -->
+             </div>
+          </div>
+       </div>
+    </div>
+ </main>
+
+{% endblock %}
+

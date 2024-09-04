@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="content">
+    <div class="container-fluid p-0">
+      <div class="col-md-4">
+         <h1 id="section_title" class="h3 mb-3"><strong><i class="fas fa-coins"></i> JP Trading - Income </strong></h1>
+       </div>
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-info">
+             <div class="inner">
+               {% if today_income.amount__sum %}
+                  <h3>{{ today_income.amount__sum }}/-</h3>
+               {% else %}
+                  <h3>0.0/-</h3>
+               {% endif %}
+
+               <p>Today's Income</p>
+             </div>
+             <div class="icon">
+              <i class="	fas fa-coins"></i>
+             </div>
+             <a href="#" class="small-box-footer">Income info <i class="fas fa-coins"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-success">
+             <div class="inner">
+               {% if yesterday_income.amount__sum %}
+                  <h3>{{ yesterday_income.amount__sum }}/-</h3>
+               {% else %}
+                  <h3>0.0/-</h3>
+               {% endif %}
+               <p>Yesterday</p>
+             </div>
+             <div class="icon">
+              <i class="fab fa-first-order"></i>
+             </div>
+             <a href="#" class="small-box-footer">Income info <i class="fas fa-coins"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-warning">
+             <div class="inner">
+               {% if this_month_income.amount__sum %}
+                  <h3>{{ this_month_income.amount__sum }}/-</h3>
+               {% else %}
+                  <h3>0.0/-</h3>
+               {% endif %}
+
+               <p>This Month</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-balance-scale"></i>
+             </div>
+             <a href="#" class="small-box-footer">Income info <i class="fas fa-coins"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+         <div class="col-lg-3 col-6">
+           <!-- small box -->
+           <div class="small-box bg-primary">
+             <div class="inner">
+               {% if last_month_income.amount__sum %}
+                  <h3>{{ last_month_income.amount__sum }}/-</h3>
+               {% else %}
+                  <h3>0.0/-</h3>
+               {% endif %}
+
+               <p>Last Month</p>
+             </div>
+             <div class="icon">
+              <i class="fas fa-chart-pie"></i>
+             </div>
+             <a href="#" class="small-box-footer">Income info <i class="fas fa-coins"></i></a>
+           </div>
+         </div>
+         <!-- ./col -->
+       </div>
+
+       <div class="row">
+         {% comment %} Main Content {% endcomment %}
+          <div class="col-12 col-lg-12 col-xxl-9 d-flex">
+             <div class="card flex-fill">
+                <div class="card-header">
+                  <!-- Search form starts -->
+                  <form class="mb-4" method="GET">
+                     <div class="row">
+                        <div class="col-md-10">
+                           <input class="form-control" name="search" placeholder="Search Customer Here...">
+                        </div>
+                        <div class="col-md-2">
+                           <button class="btn btn-success">Search</button>
+                        </div>
+                     </div>
+                   </form>
+                   <!-- Search Forms Ends -->
+                  <a href="{% url 'add_income' %}"><button type="submit" class="btn btn-primary">
+                     Add Income</button></a>
+                </div>
+                <table class="table table-hover my-0">
+                   <thead>
+                      <tr>
+                         <th>Date</th>
+                         <th class="d-none d-xl-table-cell">Income Type</th>
+                         <th class="d-none d-xl-table-cell">Total Invoice</th>
+                         <th class="d-none d-xl-table-cell">Total Amount</th>
+                         <th class="d-none d-xl-table-cell">Action</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                    {% for i in income %}
+                      <tr>
+                         <td>{{ i.date }}</td>
+                         <td>{{ i.income_type }}</td>
+                         <td><span class="badge bg-info">{{ i.total_invoice }}</span></td>
+                         <td><span class="badge bg-success">{{ i.amount }}/-</span></td>
+                         <td>
+                           <a href="{% url 'update_income' i.id %}"><button type="submit" class="btn btn-primary btn-sm"><i class="align-middle" data-feather="edit"></i></button></a>
+                           <a href="{% url 'delete_income' i.id %}"><button type="submit" class="btn btn-danger btn-sm"><i class="align-middle" data-feather="trash"></i></button></a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                   </tbody>
+                </table>           
+                <!-- start pagination -->
+                <div class="pagination">
+                  <span class="step-links">
+                      {% if income.has_previous %}
+                          <a href="?page=1"><button type="submit" class="btn btn-primary btn-sm">&laquo; First</button></a>
+                          <a href="?page={{ income.previous_page_number }}"><button type="" class="btn btn-primary btn-sm">Previous</button></a>
+                      {% endif %}
+              
+                      <span class="current">
+                          Page {{ income.number }} of {{ income.paginator.num_pages }}.
+                      </span>
+              
+                      {% if income.has_next %}
+                          <a href="?page={{ income.next_page_number }}"><button type="submit" class="btn btn-primary btn-sm">Next</button></a>
+                          <a href="?page={{ income.paginator.num_pages }}"><button type="submit" class="btn btn-primary btn-sm">Last &raquo;</button></a>
+                      {% endif %}
+                  </span>
+              </div>
+              <!-- end pagination -->
+             </div>
+          </div>
+       </div>
+    </div>
+ </main>
+
+{% endblock %}
+
